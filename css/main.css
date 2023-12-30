@@ -14,16 +14,17 @@ body{
         /* border:1px solid red; */
         display: flex;
         flex:1;
-        width: 1300px;
+        width: 1200px;
         margin:0 auto;
 }
 
 #content{
-        flex:3;
+        flex:2;
         margin:10px;
 }
 
 #side-menu{
+        max-width:350px;
         flex:1;
         margin:10px;
         display:flex;
@@ -58,7 +59,7 @@ body{
         border:1px solid #e4e4e4;
 }
 #subscribe-form input:focus{
-        border:1px solid red;
+        /* border:1px solid red; */
         /* background-color: red; */
 }
 #subscribe-form input:last-child{
@@ -103,8 +104,67 @@ body{
         color:#0d6efd;
         text-decoration: none;
 }
+#main-article-wrapper{
+        position: relative;
+        height:300px;
+}
+#main-article-wrapper:hover .main-article-overlay-cover{
+        width:60%;
+        cursor:pointer;
+}
+#main-article-wrapper:hover {
+        cursor:pointer;
+}
+#main-article-wrapper:hover .main-article-overlay-content div:last-child {
+        color:black;
+}
+#main-article-wrapper:hover .main-article-overlay-content div:first-child {
+        padding-left:30px;
+}
+.main-article-card{
+        position: relative;
 
-
+}
+.main-article-card img{ 
+        width:100%;
+}
+.main-article-overlay-cover{
+        transition: all 0.4s;
+        background-color: rgba(91,91,91,.6);
+        height:100%;
+        width:100%;
+        position: absolute;
+        top:0;
+}
+.main-article-overlay-content{
+        position:absolute;
+        display: flex;
+        flex-direction: row;
+        top:0;
+        height:100%;
+        width:100%;
+        line-height: 25px;
+        color:white;
+        font-size:18px;
+}
+.main-article-overlay-content div{
+        transition:all 0.4s;
+        flex:1;
+        padding:15px
+}
+.main-article-overlay-content div:last-child{
+        text-align: right;
+}
+#main-article-continue:after{
+        margin-left: 5px;
+        content: "\00BB";
+}
+#main-article-continue{
+        font-weight: bold;
+        position:absolute;
+        bottom:0;
+        margin-bottom:10px;
+}
 .content-container{
     border-radius: 0.25rem;
     box-shadow: 1px 1px 3px #aaa;
