@@ -7,6 +7,10 @@
       href="https://fonts.googleapis.com/css?family=Questrial"
       rel="stylesheet"
     />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"
+    />
     <link rel="stylesheet" href="css/main.css" />
     <title>Document</title>
   </head>
@@ -226,23 +230,68 @@
         </section>
       </div>
     </section>
-    <hr class="section-rule" />
     <section id="about">
-      <div>
-        <img src="images/poza.jpg" />
-      </div>
-      <div>
-        <span id="about-name"> Ciuban Eduard </span>
-        <span id="about-ocupation"> Freelancer | Web Developer </span>
-        <p>
-          Lorem ipsum, dolor sit amet consectetur adipisicing elit. Quaerat
-          perspiciatis molestiae veniam architecto ipsum, nulla harum laboriosam
-          suscipit porro ut tempore! Dolore asperiores laudantium, mollitia est
-          tempore recusandae expedita consectetur? Lorem ipsum dolor sit amet
-          consectetur, adipisicing elit. Libero quod ad nobis distinctio
-          repellendus consequuntur dignissimos corporis nulla nesciunt quidem,
-          in perferendis. Magnam aliquam minima earum qui esse ad provident.
-        </p>
+      <h2>About The Authors</h2>
+      <div id="about-card-slider">
+        <!-- <h2>About The Authors</h2> -->
+        <div class="slide-card slide-in">
+          <div id="slide-card-one">
+            <div class="card-image-holder">
+              <img src="images/author-1.jpg" />
+              <div>
+                <span class="about-name"> Ciuban Eduard </span>
+                <span class="about-occupation">
+                  Freelancer | Web Developer
+                </span>
+              </div>
+            </div>
+            <div class="card-content-holder">
+              <div>
+                <p>
+                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                  Quaerat perspiciatis molestiae veniam architecto ipsum, nulla
+                  harum laboriosam suscipit porro ut tempore! Dolore asperiores
+                  laudantium, mollitia est tempore recusandae expedita
+                  consectetur? Lorem ipsum dolor sit amet consectetur,
+                  adipisicing elit.
+                </p>
+              </div>
+              <div>
+                <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                <i class="fa fa-users" aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="slide-card">
+          <div id="slide-card-two">
+            <div class="card-image-holder">
+              <img src="images/author-1.jpg" />
+            </div>
+            <div class="card-content-holder">
+              <div>
+                <span class="about-name"> FirstName LastName </span>
+                <span class="about-occupation"> Data Analyst</span>
+              </div>
+              <div>
+                <p>
+                  Lorem ipsum, dolor sit amet consectetur adipisicing elit.
+                  Quaerat perspiciatis molestiae veniam architecto ipsum, nulla
+                  harum laboriosam suscipit porro ut tempore! Dolore asperiores
+                  laudantium, mollitia est tempore recusandae expedita
+                  consectetur? Lorem ipsum dolor sit amet consectetur,
+                  adipisicing elit.
+                </p>
+              </div>
+              <div>
+                <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+                <i class="fa fa-envelope-o" aria-hidden="true"></i>
+                <i class="fa fa-users" aria-hidden="true"></i>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
     <footer>
@@ -260,5 +309,6 @@
         </ul>
       </div>
     </footer>
+    <script src="index.js"></script>
   </body>
 </html>
