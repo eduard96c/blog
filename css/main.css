@@ -608,6 +608,9 @@ footer a:visited {
   width: 1000px;
   font-size: 25px;
 }
+#slide-options span {
+  font-size: 17px;
+}
 #slide-selectors {
   height: 0;
   transition: all 0.5s;
