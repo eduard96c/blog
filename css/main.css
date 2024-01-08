@@ -345,9 +345,17 @@ header {
   font-size: 35px;
   margin: 0;
 }
-#about-card-slider {
+#slide-wrapper {
+  display: flex;
+  flex-direction: column;
   width: 70%;
   margin: auto;
+}
+#slide-cards {
+  display: flex;
+  height: 420px;
+  justify-content: center;
+  align-items: center;
 }
 .slide-card {
   display: none;
@@ -364,7 +372,7 @@ header {
   box-shadow: 1px 1px 3px #aaa;
   background-color: white;
   height: 300px;
-  width: 80%;
+  max-width: 1000px;
   margin: 0 auto;
   display: flex;
   align-items: center;
@@ -409,7 +417,7 @@ header {
 #slide-card-two {
   border-radius: 25px;
   display: flex;
-  width: 80%;
+  max-width: 1000px;
   height: 300px;
   margin: auto;
   background-color: white;
@@ -476,13 +484,71 @@ header {
 }
 #slide-card-three {
   /* display: none; */
-  width: 100%;
-  padding: 15px;
-  height: 300px;
+  width: 700px;
+  display: flex;
+  z-index: 99;
+  position: relative;
+  /* padding: 15px; */
+  height: 250px;
+  margin: auto;
+  border: 1px solid #bdc4cc;
+  box-shadow: 0px 23px 39px -25px rgba(0, 0, 0, 0.75);
 }
 #slide-card-three img {
-  height: 180px;
-  width: 180px;
+  height: 150px;
+  width: 150px;
+  border-radius: 190px;
+  position: absolute;
+  top: 15%;
+  left: 20%;
+}
+#slide-card-three .card-image-holder {
+  background: linear-gradient(
+    235deg,
+    white 0,
+    white 143px,
+    #037f9a 0,
+    #037f9a 100%
+  );
+
+  flex: 2;
+  position: relative;
+}
+#slide-card-three .card-content-holder {
+  flex: 4;
+  display: flex;
+  flex-direction: column;
+  align-items: left;
+  justify-content: center;
+  background: white;
+}
+#slide-card-three .about-name {
+  display: block;
+  font-size: 30px;
+  font-weight: bold;
+}
+#slide-card-three .about-occupation {
+  font-style: italic;
+  color: #037f9a;
+}
+#slide-card-three p {
+  font-size: 18px;
+  line-height: 25px;
+}
+.slide-card .card-footer {
+  width: 95%;
+  display: flex;
+  justify-content: center;
+  gap: 0px;
+  margin: auto;
+  text-align: center;
+  padding: 10px;
+  border: 1px solid #bdc4cc;
+  border-top: 0;
+  font-size: 25px;
+  gap: 45px;
+  color: #1c5fc3;
+  background: white;
 }
 footer {
   display: flex;
@@ -539,7 +605,7 @@ footer a:visited {
 #slide-options {
   padding-right: 15px;
   margin: 0 auto;
-  width: 80%;
+  width: 1000px;
   font-size: 25px;
 }
 #slide-selectors {
