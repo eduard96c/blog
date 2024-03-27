@@ -11,17 +11,33 @@ body {
   font-family: "Questrial";
   letter-spacing: 0.9px;
   background-attachment: fixed;
-  background: rgb(233, 244, 255);
+  position: relative;
+  /* Folosește o singură proprietate background */
   background: linear-gradient(
-    174deg,
-    rgba(233, 244, 255, 1) 40%,
-    rgba(241, 249, 252, 1) 61%
-  );
-  background-repeat: no-repeat, no-repeat;
+      174deg,
+      rgba(233, 244, 255, 0.8) 40%,
+      rgb(13, 93, 178, 0.8) 17%
+    ),
+    url("images/backgroung-img.png") center left / auto no-repeat; /* Adaugă calea către imaginea ta */
 }
-header h1 {
+
+.logo-container {
+  /*imagine logo*/
+  display: flexbox;
+  align-items: center;
+  width: 90px;
+  height: 90px;
+}
+.titlu {
+  color: #51768f;
   font-size: 30px;
+}
+
+header h1 {
+  font-size: 40px;
   text-align: center;
+  display: flex;
+  margin-left: 20px;
 }
 #main-heading {
   font-size: 50px;
@@ -54,7 +70,8 @@ header {
   padding: 20px 50px 20px 50px;
   display: flex;
   width: 100%;
-  background-color: #f8f8f8;
+  height: 120px;
+  background: linear-gradient(to right, #ffffff, #88ffe2, #0d5db2);
   box-shadow: 1px 1px 3px #aaa;
   justify-content: space-between;
 }
@@ -69,7 +86,7 @@ header {
 #nav a {
   font-size: 20px;
   text-decoration: none;
-  color: #51768f;
+  color: #fafafa;
   font-weight: bold;
   transition: all 0.4s;
 }
@@ -184,6 +201,7 @@ header {
 }
 .main-article-card img {
   width: 100%;
+  border-radius: 15px;
 }
 .main-article-overlay-cover {
   transition: all 0.4s;
@@ -192,6 +210,7 @@ header {
   width: 100%;
   position: absolute;
   top: 0;
+  border-radius: 15px;
 }
 .main-article-overlay-content {
   position: absolute;
@@ -202,7 +221,7 @@ header {
   width: 100%;
   line-height: 25px;
   color: white;
-  font-size: 18px;
+  border-radius: 15px;
 }
 .main-article-overlay-content div {
   transition: all 0.4s;
@@ -225,9 +244,6 @@ header {
 .content-container {
   border-radius: 0.25rem;
   box-shadow: 1px 1px 3px #aaa;
-  background: #ece9e6;
-  background: -webkit-linear-gradient(to right, #ffffff, #ece9e6);
-  background: linear-gradient(to right, #edf3f9, aliceblue);
 }
 
 #blog-landing-articles {
@@ -239,11 +255,46 @@ header {
   padding: 10px;
   width: 50%;
 }
+
+/* ADD*/
+#main-article {
+  border: 1px solid #ccc;
+  padding: 20px;
+  transition: height 0.5s ease; /* Adaugăm o tranziție pentru o animație mai lină */
+  overflow: hidden; /* Ascundem conținutul care depășește fereastra */
+}
+
+#additional-content {
+  display: none; /* Textul suplimentar este ascuns în mod implicit */
+}
+
+#main-article-wrapper .content {
+  padding: 18px;
+  display: none;
+  overflow: hidden;
+  background-color: #fff; /* culoarea ferestrei albe */
+  border: 1px solid #ccc; /* adaugă o bordură subtilă */
+  z-index: 1;
+}
+.content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-30%, 5%);
+  background-color: white;
+  padding: 40px;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+/* ADD*/
+
 .article-card-content-holder {
   background-color: white;
   height: 230px;
   box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.35);
-
+  position: relative;
   border-bottom-left-radius: 5px;
   border-bottom-right-radius: 5px;
   overflow: hidden;
@@ -251,6 +302,7 @@ header {
 }
 .article-card-content {
   padding: 15px;
+  position: relative;
 }
 .article-card-image-holder {
   height: 165px;
@@ -280,7 +332,7 @@ header {
   line-height: 25px;
   color: #464646;
   overflow: hidden;
-  -webkit-line-clamp: 4;
+  /*  -webkit-line-clamp: 4;*/
   -webkit-box-orient: vertical;
   display: -webkit-box;
   text-align: left;
@@ -1013,4 +1065,30 @@ footer a:visited {
   flex: 1;
   border: 1px solid;
   margin: 5px;
+}
+
+/*add*/
+.contentsmall {
+  position: fixed;
+  top: 20%;
+  left: 5%;
+  width: 60%; /* Latimea de 100% a containerului */
+  height: 60%; /* Inaltimea de 100% a containerului */
+  background-color: white;
+  padding: 40px;
+  border: 1px solid #ccc;
+  border-radius: 15px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  transform: translate(50%, 20%);
+  z-index: 9999;
+  overflow-y: auto; /* Permite scroll pe axa verticală */
+}
+
+/*button*/
+button {
+  border-radius: 5px;
+  box-shadow: #000000;
+  color: rgb(0, 0, 0);
+  padding: 10px 20px 10px 20px;
+  background-color: #d3def1;
 }
