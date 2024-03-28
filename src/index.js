@@ -23,6 +23,31 @@ function addEvents() {
 
   const submit_btn = document.querySelector("#save-article");
   submit_btn.addEventListener("click", saveArticle);
+
+  const deleteButtons = document.querySelectorAll(".delete-article");
+  deleteButtons.forEach(function (buton) {
+    buton.addEventListener("click", function () {
+      const parent = buton.closest(".article-container");
+      const id = parent.dataset.id;
+      deleteArticle(id)
+        .then((res) => res.json())
+        .then((status) => {
+          console.warn(status);
+        });
+    });
+  });
+}
+
+function deleteArticle(id) {
+  console.warn(id);
+
+  return fetch("http://localhost:3000/articles-json/delete", {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/js",
+    },
+    body: JSON.stringify({ id: id }),
+  });
 }
 
 function getArticles() {
@@ -32,6 +57,8 @@ function getArticles() {
       // console.log(data);
       all_articles = data;
       displayArticles(all_articles);
+      addEvents();
+
       // console.log(all_articles);
     });
 }
@@ -107,7 +134,7 @@ function displayArticles(articles) {
     let html = "";
     const preview_text = getPreviewText(article.content);
     // html = `<div class="article-container">${article.title}</div>`;
-    html = `<div class="article-container">
+    html = `<div class="article-container" data-id="${article.id}">
     <div class="article-card">
       <div class="article-card-image-holder">
         <img height="165" src="/images/${article.image}">
@@ -148,4 +175,3 @@ function displayArticles(articles) {
 
 //apelare functii
 getArticles();
-addEvents();
