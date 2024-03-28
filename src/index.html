@@ -23,6 +23,9 @@
             <a href="/"> Blog Home</a>
           </li>
           <li>
+            <a href="#" id="create-article"> Create Article </a>
+          </li>
+          <!-- <li>
             <a href="/"> My CV </a>
           </li>
           <li>
@@ -30,7 +33,7 @@
           </li>
           <li>
             <a href="#"> About </a>
-          </li>
+          </li> -->
         </ul>
       </div>
     </header>
@@ -608,8 +611,53 @@
           </ul>
         </section>
       </div>
-      <div id="article-modal">
-        <div id="modal-content-wrapper"></div>
+      <div id="article-modal" style="display: none">
+        <div id="modal-form-wrapper">
+          <form id="create-article-form">
+            <div id="form-heading">
+              <h3>Create New Article</h3>
+              <span class="close-modal">❌</span>
+            </div>
+            <hr />
+            <div class="input-group">
+              <label for="category">Article Category</label>
+              <select>
+                <option id="marketing-seo">Marketing & SEO</option>
+                <option id="it-web_design">IT & Web Design</option>
+                <option id="ux-graphic_desing">UX & Graphic Design</option>
+              </select>
+            </div>
+            <div class="input-group">
+              <label for="title">Article title</label>
+              <input
+                type="text"
+                id="title"
+                placeholder="Insert article title"
+              />
+            </div>
+            <div class="input-group">
+              <label for="title">Article Content</label>
+
+              <textarea
+                placeholder="h2: This is a section
+This is the first paragraph of the first section.
+
+This is another paragraph for the first section. Notice the space between paragraphs.
+
+img:./path/to/image
+
+h2:This is another Section.
+This is the first paragraph of the second section.
+"
+                name="text-content"
+                id="text-content"
+                cols="30"
+                rows="25"
+              ></textarea>
+            </div>
+            <input type="submit" id="save-article" value="Save Article💾" />
+          </form>
+        </div>
       </div>
     </section>
 
