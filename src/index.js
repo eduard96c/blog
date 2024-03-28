@@ -24,8 +24,23 @@ function addEvents() {
 }
 
 function saveArticle() {
+  // console.log(event);
+  event.preventDefault();
   const article = getFormValues();
   console.warn(article);
+  createArticle(article)
+    .then((r) => r.json())
+    .then((data) => console.log(data));
+}
+
+function createArticle(article) {
+  return fetch("http://localhost:3000/articles-json/create", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(article),
+  });
 }
 
 function getFormValues() {
