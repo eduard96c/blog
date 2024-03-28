@@ -300,6 +300,11 @@ header {
   overflow: hidden;
   position: relative;
 }
+.card-button-holder {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .article-card-content {
   padding: 15px;
   position: relative;
@@ -1150,4 +1155,10 @@ button {
   background-color: green;
   color: white;
   cursor: pointer;
+}
+.control-btn {
+  cursor: pointer;
+}
+.control-btn:hover {
+  font-size: 17px;
 }

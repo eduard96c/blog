@@ -164,9 +164,21 @@
                         și în mediul online (SEO), este important să ai în
                         vedere următoarele aspecte:
                       </p>
-                      <button type="button" class="continue_reading">
-                        Continue Reading
-                      </button>
+                      <div class="card-button-holder">
+                        <button type="button" class="continue_reading">
+                          Continue Reading
+                        </button>
+                        <div class="article-control-buttons">
+                          <span class="start-update control-btn" title="Update"
+                            >💾</span
+                          >
+                          <span
+                            class="delete-article control-btn"
+                            title="Delete"
+                            >❌</span
+                          >
+                        </div>
+                      </div>
                       <div class="contentsmall" style="display: none">
                         <p>
                           Pentru a avea un branding bun, atât în mediul fizic,
@@ -633,6 +645,14 @@
                 type="text"
                 id="title"
                 placeholder="Insert article title"
+              />
+            </div>
+            <div class="input-group">
+              <label for="image">Article image</label>
+              <input
+                type="text"
+                id="image"
+                placeholder="Insert image path. Eg:/path-to-image.png"
               />
             </div>
             <div class="input-group">
