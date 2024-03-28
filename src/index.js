@@ -18,6 +18,14 @@ function addEvents() {
 
   const close_btn = document.querySelector(".close-modal");
   close_btn.addEventListener("click", closeCreateForm);
+
+  const submit_btn = document.querySelector("#save-article");
+  submit_btn.addEventListener("click", saveArticle);
+}
+
+function saveArticle() {
+  const article = getFormValues();
+  console.warn(article);
 }
 
 function getFormValues() {
