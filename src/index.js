@@ -1,6 +1,9 @@
 import "./style.css";
 
 //declarari functii
+function $(param) {
+  return document.querySelector(param);
+}
 
 //setam toate event-urile de pe pagina in functia addEvents()
 function addEvents() {
@@ -15,6 +18,23 @@ function addEvents() {
 
   const close_btn = document.querySelector(".close-modal");
   close_btn.addEventListener("click", closeCreateForm);
+}
+
+function getFormValues() {
+  // const form = $("#create-article-form");
+  const article = {};
+
+  const inputs = document.querySelectorAll(
+    "#create-article-form input,select,textarea"
+  );
+
+  inputs.forEach(function (element) {
+    const input_name = element.id;
+    const input_value = element.value;
+    article[input_name] = input_value;
+  });
+
+  return article;
 }
 
 function closeCreateForm() {
@@ -38,5 +58,4 @@ function _handleContinueReading() {
 }
 
 //apelare functii
-
 addEvents();
