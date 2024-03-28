@@ -1,6 +1,6 @@
 import "./style.css";
 
-let articles = [];
+let all_articles = [];
 
 //declarari functii
 function $(param) {
@@ -25,14 +25,15 @@ function addEvents() {
   submit_btn.addEventListener("click", saveArticle);
 }
 
-function saveArticle() {
-  // console.log(event);
-  event.preventDefault();
-  const article = getFormValues();
-  console.warn(article);
-  createArticle(article)
-    .then((r) => r.json())
-    .then((data) => console.log(data));
+function getArticles() {
+  fetch("http://localhost:3000/articles-json")
+    .then((res) => res.json())
+    .then((data) => {
+      // console.log(data);
+      all_articles = data;
+      displayArticles(all_articles);
+      // console.log(all_articles);
+    });
 }
 
 function createArticle(article) {
@@ -43,6 +44,16 @@ function createArticle(article) {
     },
     body: JSON.stringify(article),
   });
+}
+
+function saveArticle() {
+  // console.log(event);
+  event.preventDefault();
+  const article = getFormValues();
+  console.warn(article);
+  createArticle(article)
+    .then((r) => r.json())
+    .then((data) => console.log(data));
 }
 
 function getFormValues() {
@@ -82,15 +93,59 @@ function _handleContinueReading() {
   console.log("Button clicked. Display style: " + contentsmall.style.display);
 }
 
-function getArticles() {
-  fetch("http://localhost:3000/articles-json")
-    .then((res) => res.json())
-    .then((data) => {
-      articles = data;
-    });
+function getPreviewText(text) {
+  if (text) {
+    return text.slice(0, 200);
+  }
+}
+
+function displayArticles(articles) {
+  console.log(articles);
+  let articles_container = document.querySelector("#blog-landing-articles");
+
+  articles.forEach(function (article) {
+    let html = "";
+    const preview_text = getPreviewText(article.content);
+    // html = `<div class="article-container">${article.title}</div>`;
+    html = `<div class="article-container">
+    <div class="article-card">
+      <div class="article-card-image-holder">
+        <img height="165" src="/images/${article.image}">
+      </div>
+      <div class="article-card-content-holder">
+        <div class="article-card-content">
+          <div class="article-card-heading">
+            <h3>
+           ${article.title}
+            </h3>
+            <div class="article-card-heading-info">
+              <span>${article.date}</span>
+              <span>|</span>
+              <span>${article.category}</span>
+            </div>
+          </div>
+          <div class="article-card-text">
+            <p>
+             ${preview_text}
+            </p>
+            <div class="card-button-holder">
+              <button type="button" class="continue_reading">
+                Continue Reading
+              </button>
+              <div class="article-control-buttons">
+                <span class="start-update control-btn" title="Update">💾</span>
+                <span class="delete-article control-btn" title="Delete">❌</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>`;
+    articles_container.innerHTML += html;
+  });
 }
 
 //apelare functii
-addEvents();
 getArticles();
-console.log(articles);
+addEvents();
