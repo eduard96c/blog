@@ -9,6 +9,14 @@ function addEvents() {
     //la fiecare click se apeleaza functia _handleContinueReading
     button.addEventListener("click", _handleContinueReading);
   });
+
+  const create_btn = document.querySelector("#create-article");
+  create_btn.addEventListener("click", openCreateFrom);
+}
+
+function openCreateFrom() {
+  const modal = document.querySelector("#article-modal");
+  modal.style.display = "block";
 }
 
 function _handleContinueReading() {
