@@ -1,5 +1,7 @@
 import "./style.css";
 
+let articles = [];
+
 //declarari functii
 function $(param) {
   return document.querySelector(param);
@@ -80,5 +82,15 @@ function _handleContinueReading() {
   console.log("Button clicked. Display style: " + contentsmall.style.display);
 }
 
+function getArticles() {
+  fetch("http://localhost:3000/articles-json")
+    .then((res) => res.json())
+    .then((data) => {
+      articles = data;
+    });
+}
+
 //apelare functii
 addEvents();
+getArticles();
+console.log(articles);
