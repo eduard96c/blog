@@ -12,6 +12,14 @@ function addEvents() {
 
   const create_btn = document.querySelector("#create-article");
   create_btn.addEventListener("click", openCreateFrom);
+
+  const close_btn = document.querySelector(".close-modal");
+  close_btn.addEventListener("click", closeCreateForm);
+}
+
+function closeCreateForm() {
+  const modal = document.querySelector("#article-modal");
+  modal.style.display = "none";
 }
 
 function openCreateFrom() {
@@ -30,4 +38,5 @@ function _handleContinueReading() {
 }
 
 //apelare functii
+
 addEvents();
