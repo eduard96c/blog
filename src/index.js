@@ -1,5 +1,7 @@
 import "./style.css";
 
+let edit = false;
+
 let all_articles = [];
 
 //declarari functii
@@ -39,6 +41,31 @@ function addEvents() {
         });
     });
   });
+
+  const updateButtons = document.querySelectorAll(".start-update");
+  updateButtons.forEach(function (button) {
+    button.addEventListener("click", function () {
+      const parent = button.closest(".article-container");
+      const id = parent.dataset.id;
+      openCreateFrom();
+
+      startUpdate(id);
+    });
+  });
+}
+
+function startUpdate(id) {
+  edit = id;
+  const article = all_articles.find((article) => article.id == id);
+  const form = document.querySelector("#create-article-form");
+  for (const key in article) {
+    const input = document.querySelector("#" + key);
+    console.log(input);
+    console.log(key);
+    if (input) {
+      input.value = article[key];
+    }
+  }
 }
 
 function deleteArticle(id) {
@@ -76,18 +103,41 @@ function createArticle(article) {
   });
 }
 
+function updateArticle(article) {
+  return fetch("http://localhost:3000/articles-json/update", {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(article),
+  });
+}
+
 function saveArticle() {
   // console.log(event);
   event.preventDefault();
   const article = getFormValues();
-  console.warn(article);
-  createArticle(article)
-    .then((r) => r.json())
-    .then((data) => {
-      if (data.success) {
-        window.location.reload();
-      }
-    });
+  if (edit) {
+    const article = getFormValues();
+    article.id = edit;
+    updateArticle(article)
+      .then((r) => r.json())
+      .then((status) => {
+        if (status.success) {
+          window.location.reload();
+        }
+        console.log(article);
+      });
+  } else {
+    console.warn(article);
+    createArticle(article)
+      .then((r) => r.json())
+      .then((status) => {
+        if (status.success) {
+          window.location.reload();
+        }
+      });
+  }
 }
 
 function getFormValues() {
