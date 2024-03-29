@@ -32,7 +32,10 @@ function addEvents() {
       deleteArticle(id)
         .then((res) => res.json())
         .then((status) => {
-          console.warn(status);
+          console.log(status);
+          if (status.success) {
+            window.location.reload();
+          }
         });
     });
   });
@@ -44,7 +47,7 @@ function deleteArticle(id) {
   return fetch("http://localhost:3000/articles-json/delete", {
     method: "DELETE",
     headers: {
-      "Content-Type": "application/js",
+      "Content-Type": "application/json",
     },
     body: JSON.stringify({ id: id }),
   });
@@ -80,7 +83,11 @@ function saveArticle() {
   console.warn(article);
   createArticle(article)
     .then((r) => r.json())
-    .then((data) => console.log(data));
+    .then((data) => {
+      if (data.success) {
+        window.location.reload();
+      }
+    });
 }
 
 function getFormValues() {
