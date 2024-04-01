@@ -179,7 +179,7 @@ function _handleContinueReading() {
 
 function getPreviewText(text) {
   if (text) {
-    return text.slice(0, 70);
+    return text.slice(0, 10);
   }
 }
 
