@@ -1,8 +1,10 @@
 import "./style.css";
 
 let edit = false;
-
 let all_articles = [];
+
+let limit = 2;
+let offset = 0;
 
 //declarari functii
 function $(param) {
@@ -34,7 +36,6 @@ function addEvents() {
       deleteArticle(id)
         .then((res) => res.json())
         .then((status) => {
-          console.log(status);
           if (status.success) {
             window.location.reload();
           }
@@ -48,10 +49,17 @@ function addEvents() {
       const parent = button.closest(".article-container");
       const id = parent.dataset.id;
       openCreateFrom();
-
       startUpdate(id);
     });
   });
+
+  const loadMore = document.querySelector(".more-articles");
+  loadMore.addEventListener("click", loadMoreArticles);
+}
+
+function loadMoreArticles() {
+  offset += limit;
+  getArticles();
 }
 
 function startUpdate(id) {
@@ -60,8 +68,6 @@ function startUpdate(id) {
   const form = document.querySelector("#create-article-form");
   for (const key in article) {
     const input = document.querySelector("#" + key);
-    console.log(input);
-    console.log(key);
     if (input) {
       input.value = article[key];
     }
@@ -69,8 +75,6 @@ function startUpdate(id) {
 }
 
 function deleteArticle(id) {
-  console.warn(id);
-
   return fetch("http://localhost:3000/articles-json/delete", {
     method: "DELETE",
     headers: {
@@ -81,15 +85,14 @@ function deleteArticle(id) {
 }
 
 function getArticles() {
-  fetch("http://localhost:3000/articles-json")
+  fetch(
+    "http://localhost:3000/articles-json?limit=" + limit + "&offset=" + offset
+  )
     .then((res) => res.json())
     .then((data) => {
-      // console.log(data);
       all_articles = data;
       displayArticles(all_articles);
       addEvents();
-
-      // console.log(all_articles);
     });
 }
 
@@ -114,7 +117,6 @@ function updateArticle(article) {
 }
 
 function saveArticle() {
-  // console.log(event);
   event.preventDefault();
   const article = getFormValues();
   if (edit) {
@@ -126,10 +128,8 @@ function saveArticle() {
         if (status.success) {
           window.location.reload();
         }
-        console.log(article);
       });
   } else {
-    console.warn(article);
     createArticle(article)
       .then((r) => r.json())
       .then((status) => {
@@ -168,7 +168,7 @@ function openCreateFrom() {
 }
 
 function _handleContinueReading() {
-  var contentsmall = this.nextElementSibling;
+  var contentsmall = this.parentElement.nextElementSibling;
   if (contentsmall.style.display === "block") {
     contentsmall.style.display = "none";
   } else {
@@ -184,7 +184,6 @@ function getPreviewText(text) {
 }
 
 function displayArticles(articles) {
-  console.log(articles);
   let articles_container = document.querySelector("#blog-landing-articles");
 
   articles.forEach(function (article) {
@@ -221,6 +220,7 @@ function displayArticles(articles) {
                 <span class="delete-article control-btn" title="Delete">❌</span>
               </div>
             </div>
+            <div class="contentsmall" style="display:none">${article.content}</div>
           </div>
         </div>
       </div>
