@@ -1,5 +1,7 @@
 import "./style.css";
 
+console.warn("start");
+
 let edit = false;
 let all_articles = [];
 
@@ -7,8 +9,8 @@ let limit = 2;
 let offset = 0;
 
 //declarari functii
-function $(param) {
-  return document.querySelector(param);
+function $(selector) {
+  return document.querySelector(selector);
 }
 
 //setam toate event-urile de pe pagina in functia addEvents()
@@ -19,11 +21,10 @@ function addEvents() {
     button.addEventListener("click", _handleContinueReading);
   });
 
-  const create_btn = document.querySelector("#create-article");
+  const create_btn = $("#create-article");
   create_btn.addEventListener("click", openCreateFrom);
 
-  const close_btn = document.querySelector(".close-modal");
-  close_btn.addEventListener("click", closeCreateForm);
+  $(".close-modal").addEventListener("click", closeCreateForm);
 
   const submit_btn = document.querySelector("#save-article");
   submit_btn.addEventListener("click", saveArticle);
@@ -116,7 +117,7 @@ function updateArticle(article) {
   });
 }
 
-function saveArticle() {
+function saveArticle(event) {
   event.preventDefault();
   const article = getFormValues();
   if (edit) {
