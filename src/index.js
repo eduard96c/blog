@@ -159,23 +159,23 @@ function getFormValues() {
 }
 
 function closeCreateForm() {
-  const modal = document.querySelector("#article-modal");
+  const modal = document.querySelector("#article-create-modal");
   modal.style.display = "none";
 }
 
 function openCreateFrom() {
-  const modal = document.querySelector("#article-modal");
+  const modal = document.querySelector("#article-create-modal");
   modal.style.display = "block";
 }
 
 function _handleContinueReading() {
-  var contentsmall = this.parentElement.nextElementSibling;
-  if (contentsmall.style.display === "block") {
-    contentsmall.style.display = "none";
+  var modal = $("#article-modal");
+  if (modal.style.display === "block") {
+    modal.style.display = "none";
   } else {
-    contentsmall.style.display = "block";
+    modal.style.display = "block";
   }
-  console.log("Button clicked. Display style: " + contentsmall.style.display);
+  console.log("Button clicked. Display style: " + modal.style.display);
 }
 
 function getPreviewText(text) {

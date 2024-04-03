@@ -7,8 +7,6 @@
       href="https://fonts.googleapis.com/css?family=Questrial"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="style.css" />
-    <!-- <link rel="stylesheet" href="css/main.css" /> -->
     <title>Document</title>
   </head>
   <body>
@@ -177,7 +175,7 @@
           </ul>
         </section>
       </div>
-      <div id="article-modal" style="display: none">
+      <div id="article-create-modal" style="display: none">
         <div id="modal-form-wrapper">
           <form id="create-article-form">
             <div id="form-heading">
@@ -227,6 +225,13 @@
           </form>
         </div>
       </div>
+      <div id="article-modal" style="display: none">
+        <div id="article-content-wrapper">
+          <span id="close-article">❌</span>
+          <h2 id="article-title">Title goes here</h2>
+          <div id="article-content"></div>
+        </div>
+      </div>
     </section>
 
     <footer>
@@ -244,9 +249,5 @@
         </ul>
       </div>
     </footer>
-
-    <script>
-      // slide_control();
-    </script>
   </body>
 </html>

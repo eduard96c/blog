@@ -1099,6 +1099,7 @@ button {
   background-color: #d3def1;
 }
 
+#article-create-modal,
 #article-modal {
   position: absolute;
   width: 100%;
@@ -1163,4 +1164,24 @@ button {
 }
 .control-btn:hover {
   font-size: 17px;
+}
+#article-content-wrapper {
+  position: relative;
+  padding: 20px;
+  width: 50%;
+  height: 80vh;
+  background-color: white;
+  margin: 0 auto;
+  position: sticky;
+  top: 100px;
+  border-radius: 5px;
+}
+#article-title {
+  text-align: center;
+}
+#close-article {
+  position: absolute;
+  top: 25px;
+  right: 50px;
+  cursor: pointer;
 }
