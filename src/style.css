@@ -1110,13 +1110,14 @@ button {
 }
 #modal-form-wrapper {
   padding: 20px;
-  width: 50%;
+  width: 75%;
   height: 80vh;
   background-color: white;
   margin: 0 auto;
   position: sticky;
   top: 100px;
   border-radius: 5px;
+  display: flex;
 }
 #form-heading {
   display: flex;
@@ -1184,4 +1185,20 @@ button {
   top: 25px;
   right: 50px;
   cursor: pointer;
+}
+#preview-wrapper {
+  height: 100%;
+  flex: 1;
+  /* background-color: black; */
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.4);
+  margin: 5px;
+  padding: 15px;
+}
+#create-article-form {
+  flex: 1;
+  margin: 5px;
+}
+.article-image {
+  display: block;
+  margin: 0 auto;
 }

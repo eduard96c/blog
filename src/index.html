@@ -141,35 +141,25 @@
         </section>
       </div>
       <div id="side-menu">
-        <section id="subscribe">
-          <h3>Subscribe to Newsletter</h3>
-          <form id="subscribe-form" method="post" action="#">
-            <input
-              type="text"
-              id="subscribe-email"
-              placeholder="Your Email Here"
-            />
-            <input
-              type="text"
-              id="subscribe-name"
-              placeholder="Your Name Here"
-            />
-            <input type="submit" id="submit-subscribe" />
-          </form>
-        </section>
         <section id="categories">
           <h3>Categories</h3>
           <ul id="categories-list" class="side-menu-list">
             <li>
-              <a href="marketing_seo.html">Marketing & SEO</a>
+              <a class="category-selector" data-id="marketing-seo"
+                >Marketing & SEO</a
+              >
             </li>
             <hr />
             <li>
-              <a href="it_web_design.html">IT & Web Design</a>
+              <a class="category-selector" data-id="it-web_design"
+                >IT & Web Design</a
+              >
             </li>
             <hr />
             <li>
-              <a href="ux_graphic_design.html">UX & Graphic Design</a>
+              <a class="category-selector" data-id="ux-graphic_design"
+                >UX & Graphic Design</a
+              >
             </li>
             <hr />
           </ul>
@@ -186,9 +176,9 @@
             <div class="input-group">
               <label for="category">Article Category</label>
               <select id="category">
-                <option id="marketing-seo">Marketing & SEO</option>
-                <option id="it-web_design">IT & Web Design</option>
-                <option id="ux-graphic_desing">UX & Graphic Design</option>
+                <option value="marketing-seo">Marketing & SEO</option>
+                <option value="it-web_design">IT & Web Design</option>
+                <option value="ux-graphic_desing">UX & Graphic Design</option>
               </select>
             </div>
             <div class="input-group">
@@ -213,16 +203,26 @@
               <label for="title">Article Content</label>
 
               <textarea
-                placeholder=""
                 name="content"
                 id="content"
                 cols="30"
                 rows="10"
                 required
+                placeholder="h3: this is a section heading
+this is a paragraph
+\n
+this is another para
+h3: this is another section heading
+this is another para
+img:/path/to/img
+                "
               ></textarea>
             </div>
             <button id="save-article">Save Article💾</button>
+
+            <button id="preview-article">Preview Article💾</button>
           </form>
+          <div id="preview-wrapper"></div>
         </div>
       </div>
       <div id="article-modal" style="display: none">

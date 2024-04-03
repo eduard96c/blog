@@ -59,6 +59,68 @@ function addEvents() {
 
   const close_article = $("#close-article");
   close_article.addEventListener("click", closeArticle);
+
+  const text_area = $("#content");
+  text_area.addEventListener("keydown", previewArticle);
+
+  // const preview_button = $("#preview-article");
+  // preview_button.addEventListener("click", parseText);
+}
+
+function previewArticle(event) {
+  // event.preventDefault();
+
+  //tine minte elementul in care scriem: textareax
+  const text_area = event.target;
+  //tinem minte textul din textarea
+  const text = text_area.value;
+
+  //tine minte zona de preview
+  const preview_wrapper = $("#preview-wrapper");
+
+  const title =
+    text_area.parentElement.previousElementSibling.previousElementSibling
+      .children[1];
+
+  //tine minte un html gol
+  let html = `<h2 id="article-title">${title.value}</h2>`;
+
+  html += parseText(text);
+  //in zona de preview adaugam HTML-ul creeat
+  preview_wrapper.innerHTML = html;
+}
+
+function parseText(text) {
+  let html = "";
+
+  //impartim textul dupa "new lines"
+  const splited_text = text.split("\n");
+  //parcurgem toate linile de text
+  splited_text.forEach(function (line) {
+    //catuam o linie care are text "h3:"
+    const h3_index = line.toLowerCase().indexOf("h3:");
+
+    //daca linia are h3
+    if (h3_index >= 0) {
+      // luam textul de dupa h3
+      const heading_text = line.substring(3);
+      //adaugam un element html la variabila hmtl
+      html += `<h3 class="article-heading">${heading_text}</h3>`;
+    }
+
+    const img_index = line.indexOf("img:");
+
+    if (img_index >= 0) {
+      const img_path = line.substring(4);
+      html += `<img class="article-image" width="200" height="100" src="${img_path}">`;
+    }
+
+    //daca nu avem h3: SI nici img: linie este un paragraph
+    if (h3_index < 0 && img_index < 0) {
+      html += `<p class="article-paragraph">${line}</p>`;
+    }
+  });
+  return html;
 }
 
 function loadMoreArticles() {
@@ -165,7 +227,6 @@ function closeCreateForm() {
   const modal = document.querySelector("#article-create-modal");
   modal.style.display = "none";
 }
-
 function closeArticle() {
   const modal = $("#article-modal");
   modal.style.display = "none";
@@ -200,12 +261,12 @@ function displayArticle(article) {
   const article_tittle = $("#article-title");
   article_tittle.innerHTML = article.title;
   const article_content = $("#article-content");
-  article_content.innerHTML = article.content;
+  article_content.innerHTML = parseText(article.content);
 }
 
 function getPreviewText(text) {
   if (text) {
-    return text.slice(0, 10);
+    return text.slice(3, 200);
   }
 }
 
