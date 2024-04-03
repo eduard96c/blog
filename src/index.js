@@ -56,6 +56,9 @@ function addEvents() {
 
   const loadMore = document.querySelector(".more-articles");
   loadMore.addEventListener("click", loadMoreArticles);
+
+  const close_article = $("#close-article");
+  close_article.addEventListener("click", closeArticle);
 }
 
 function loadMoreArticles() {
@@ -163,19 +166,41 @@ function closeCreateForm() {
   modal.style.display = "none";
 }
 
+function closeArticle() {
+  const modal = $("#article-modal");
+  modal.style.display = "none";
+}
+
 function openCreateFrom() {
   const modal = document.querySelector("#article-create-modal");
   modal.style.display = "block";
 }
 
-function _handleContinueReading() {
+function _handleContinueReading(event) {
   var modal = $("#article-modal");
-  if (modal.style.display === "block") {
-    modal.style.display = "none";
-  } else {
-    modal.style.display = "block";
-  }
+  modal.style.display = "block";
+  console.log(event.target);
+  //tinem minte parintele butonului pe care am dat click//
+  const parent = event.target.closest(".article-container");
+  //tinem minte articolul id articolului //
+  var article_id = parent.dataset.id;
+
+  //tinem minte in variabila article articolul cu id article_id//
+  const article = all_articles.find(
+    (curentArticle) => curentArticle.id == article_id
+  );
+  displayArticle(article);
+
+  console.log(article_id);
   console.log("Button clicked. Display style: " + modal.style.display);
+}
+
+function displayArticle(article) {
+  const article_wrapper = $("article-content-wrapper");
+  const article_tittle = $("#article-title");
+  article_tittle.innerHTML = article.title;
+  const article_content = $("#article-content");
+  article_content.innerHTML = article.content;
 }
 
 function getPreviewText(text) {
