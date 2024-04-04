@@ -5,11 +5,16 @@ console.warn("start");
 let edit = false;
 let all_articles = [];
 
-let limit = 2;
+let limit = 8;
 let offset = 0;
 
+let category = false;
+
 //declarari functii
-function $(selector) {
+function $(selector, all = false) {
+  if (all) {
+    return document.querySelectorAll(selector);
+  }
   return document.querySelector(selector);
 }
 
@@ -63,8 +68,23 @@ function addEvents() {
   const text_area = $("#content");
   text_area.addEventListener("keydown", previewArticle);
 
+  //(category-selector)
+  var category_selector = $(".category-selector", true);
+  category_selector.forEach(function (category_button) {
+    category_button.addEventListener("click", filtreArticles);
+  });
+
   // const preview_button = $("#preview-article");
   // preview_button.addEventListener("click", parseText);
+}
+
+function filtreArticles(event) {
+  var id = event.target.dataset.id;
+  category = id;
+  var filtred_articles = all_articles.filter(
+    (article) => article.category == id
+  );
+  console.log(filtred_articles);
 }
 
 function previewArticle(event) {
@@ -152,7 +172,12 @@ function deleteArticle(id) {
 
 function getArticles() {
   fetch(
-    "http://localhost:3000/articles-json?limit=" + limit + "&offset=" + offset
+    "http://localhost:3000/articles-json?limit=" +
+      limit +
+      "&offset=" +
+      offset +
+      "&category" +
+      category
   )
     .then((res) => res.json())
     .then((data) => {
@@ -317,5 +342,16 @@ function displayArticles(articles) {
   });
 }
 
+function get_articles() {
+  var query = window.location.search;
+  var params = query.substring(1).split("&");
+  if (params) {
+    category = params[0].substring(9);
+    console.log(category);
+  }
+  console.log(params);
+  getArticles();
+}
+
 //apelare functii
-getArticles();
+get_articles();
