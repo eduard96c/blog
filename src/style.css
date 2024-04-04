@@ -782,6 +782,9 @@ footer a:visited {
   padding: 15px;
   margin-top: 20px;
   border-radius: 5px;
+  overflow: auto;
+  height: 80%;
+  word-break: break-all;
 }
 #article-info {
   font-size: 14px;

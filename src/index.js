@@ -5,7 +5,7 @@ console.warn("start");
 let edit = false;
 let all_articles = [];
 
-let limit = 8;
+let limit = 2;
 let offset = 0;
 
 let category = false;
@@ -18,14 +18,8 @@ function $(selector, all = false) {
   return document.querySelector(selector);
 }
 
-//setam toate event-urile de pe pagina in functia addEvents()
-function addEvents() {
-  var continueReadingButtons = document.querySelectorAll(".continue_reading");
-  continueReadingButtons.forEach(function (button) {
-    //la fiecare click se apeleaza functia _handleContinueReading
-    button.addEventListener("click", _handleContinueReading);
-  });
-
+//setam toate event-urile de pe pagina in functia addPageEvents()
+function addPageEvents() {
   const create_btn = $("#create-article");
   create_btn.addEventListener("click", openCreateFrom);
 
@@ -33,6 +27,31 @@ function addEvents() {
 
   const submit_btn = document.querySelector("#save-article");
   submit_btn.addEventListener("click", saveArticle);
+
+  const loadMore = document.querySelector(".more-articles");
+  loadMore.addEventListener("click", loadMoreArticles);
+
+  const text_area = $("#content");
+  text_area.addEventListener("keydown", previewArticle);
+
+  //(category-selector)
+  // var category_selector = $(".category-selector", true);
+  // category_selector.forEach(function (category_button) {
+  //   category_button.addEventListener("click", filtreArticles);
+  // });
+
+  // const preview_button = $("#preview-article");
+  // preview_button.addEventListener("click", parseText);
+}
+
+//setam toate event-urile de pe articole in functia addArticleEvents()
+
+function addArticleEvents() {
+  var continueReadingButtons = document.querySelectorAll(".continue_reading");
+  continueReadingButtons.forEach(function (button) {
+    //la fiecare click se apeleaza functia _handleContinueReading
+    button.addEventListener("click", _handleContinueReading);
+  });
 
   const deleteButtons = document.querySelectorAll(".delete-article");
   deleteButtons.forEach(function (buton) {
@@ -59,23 +78,8 @@ function addEvents() {
     });
   });
 
-  const loadMore = document.querySelector(".more-articles");
-  loadMore.addEventListener("click", loadMoreArticles);
-
   const close_article = $("#close-article");
   close_article.addEventListener("click", closeArticle);
-
-  const text_area = $("#content");
-  text_area.addEventListener("keydown", previewArticle);
-
-  //(category-selector)
-  var category_selector = $(".category-selector", true);
-  category_selector.forEach(function (category_button) {
-    category_button.addEventListener("click", filtreArticles);
-  });
-
-  // const preview_button = $("#preview-article");
-  // preview_button.addEventListener("click", parseText);
 }
 
 function filtreArticles(event) {
@@ -145,7 +149,7 @@ function parseText(text) {
 
 function loadMoreArticles() {
   offset += limit;
-  getArticles();
+  getRequest();
 }
 
 function startUpdate(id) {
@@ -170,20 +174,21 @@ function deleteArticle(id) {
   });
 }
 
-function getArticles() {
+function getRequest() {
   fetch(
     "http://localhost:3000/articles-json?limit=" +
       limit +
       "&offset=" +
       offset +
-      "&category" +
+      "&category=" +
       category
   )
     .then((res) => res.json())
     .then((data) => {
       all_articles = data;
       displayArticles(all_articles);
-      addEvents();
+      displayLastArticle();
+      addArticleEvents();
     });
 }
 
@@ -267,7 +272,10 @@ function _handleContinueReading(event) {
   modal.style.display = "block";
   console.log(event.target);
   //tinem minte parintele butonului pe care am dat click//
-  const parent = event.target.closest(".article-container");
+  const parent =
+    event.target.closest(".article-container") ||
+    event.target.closest("#main-article-wrapper");
+  console.log(parent);
   //tinem minte articolul id articolului //
   var article_id = parent.dataset.id;
 
@@ -293,6 +301,21 @@ function getPreviewText(text) {
   if (text) {
     return text.slice(3, 200);
   }
+}
+
+function displayLastArticle() {
+  const article = all_articles[all_articles.length - 1];
+  const parent = $("#main-article-wrapper");
+  const title = $("#main-article-title");
+  const preview = $("#main-article-preview");
+  const img = $("#main-article-image");
+  const dt = $("#main-article-date");
+
+  title.innerHTML = article.title;
+  preview.innerHTML = article.content;
+  img.src = article.image;
+  dt.innerHTML = article.date;
+  parent.dataset.id = article.id;
 }
 
 function displayArticles(articles) {
@@ -342,7 +365,7 @@ function displayArticles(articles) {
   });
 }
 
-function get_articles() {
+function getArticles() {
   var query = window.location.search;
   var params = query.substring(1).split("&");
   if (params) {
@@ -350,8 +373,9 @@ function get_articles() {
     console.log(category);
   }
   console.log(params);
-  getArticles();
+  getRequest();
 }
 
 //apelare functii
-get_articles();
+addPageEvents();
+getArticles();
