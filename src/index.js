@@ -297,6 +297,23 @@ function displayArticle(article) {
   article_tittle.innerHTML = article.title;
   const article_content = $("#article-content");
   article_content.innerHTML = parseText(article.content);
+
+  createTableOfContent();
+}
+
+function createTableOfContent() {
+  var content = $("#article-content");
+  var headings = content.querySelectorAll("h3");
+  var table_wrapper = $("#article-table");
+  var ul = "<ul>";
+
+  headings.forEach(function (heading) {
+    var li = `<li class="content-heading"><a>${heading.innerHTML}</a></li>`;
+    ul += li;
+    console.log(li);
+  });
+  ul += "</ul>";
+  table_wrapper.innerHTML += ul;
 }
 
 function getPreviewText(text) {
