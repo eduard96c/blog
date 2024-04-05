@@ -375,7 +375,7 @@ header {
   padding-top: 15px;
   color: #1c5fc3;
 }
-.more-articles {
+#more-articles {
   font-size: 18px;
   padding: 10px 35px 10px 35px;
   /* margin-left: 10px; */
@@ -386,7 +386,7 @@ header {
   border: 2px solid gray;
   transition: all 0.6s;
 }
-.more-articles:hover {
+#more-articles:hover {
   border-color: white;
   cursor: pointer;
   background-color: #0d6efd;

@@ -4,6 +4,7 @@ console.warn("start");
 
 let edit = false;
 let all_articles = [];
+let main_article = false;
 
 let limit = 2;
 let offset = 0;
@@ -28,7 +29,7 @@ function addPageEvents() {
   const submit_btn = document.querySelector("#save-article");
   submit_btn.addEventListener("click", saveArticle);
 
-  const loadMore = document.querySelector(".more-articles");
+  const loadMore = document.querySelector("#more-articles");
   loadMore.addEventListener("click", loadMoreArticles);
 
   const text_area = $("#content");
@@ -85,15 +86,27 @@ function addArticleEvents() {
 function articleNavigate(event) {
   var article_content = $("#article-content");
   var headings = article_content.querySelectorAll("h3");
-  console.log(headings);
 
   if (event.target.tagName == "A") {
     var found = Array.from(headings).find((h) => {
-      return h.innerHTML == event.target.tagName.innerHTML;
+      console.log(h.innerHTML);
+      return h.innerHTML == event.target.innerHTML;
     });
     if (found) {
-      found.scrollIntoView();
+      // found.scrollIntoView();
+      const pos = findPosition(found);
+      article_content.scroll(0, findPosition(found));
     }
+  }
+}
+
+function findPosition(obj) {
+  var currenttop = 0;
+  if (obj.offsetParent) {
+    do {
+      currenttop += obj.offsetTop;
+    } while ((obj = obj.offsetParent));
+    return [currenttop - 200];
   }
 }
 
@@ -103,7 +116,6 @@ function filtreArticles(event) {
   var filtred_articles = all_articles.filter(
     (article) => article.category == id
   );
-  console.log(filtred_articles);
 }
 
 function previewArticle(event) {
@@ -167,11 +179,11 @@ function loadMoreArticles(event) {
   getRequest()
     .then((res) => res.json())
     .then((data) => {
-      all_articles = data["articles"];
-      displayArticles(all_articles);
+      all_articles = all_articles.concat(data["articles"]);
+      displayArticles(data["articles"]);
       addArticleEvents();
       if (data["is_last"]) {
-        event.target.style.display = "none";
+        hide_load_more_button();
       }
     });
 }
@@ -287,12 +299,10 @@ function openCreateFrom() {
 function _handleContinueReading(event) {
   var modal = $("#article-modal");
   modal.style.display = "block";
-  console.log(event.target);
   //tinem minte parintele butonului pe care am dat click//
   const parent =
     event.target.closest(".article-container") ||
     event.target.closest("#main-article-wrapper");
-  console.log(parent);
   //tinem minte articolul id articolului //
   var article_id = parent.dataset.id;
 
@@ -301,9 +311,6 @@ function _handleContinueReading(event) {
     (curentArticle) => curentArticle.id == article_id
   );
   displayArticle(article);
-
-  console.log(article_id);
-  console.log("Button clicked. Display style: " + modal.style.display);
 }
 
 function displayArticle(article) {
@@ -316,7 +323,6 @@ function displayArticle(article) {
   createTableOfContent();
 
   var content_list = $("#table-of-content");
-  console.log(content_list);
   content_list.addEventListener("click", articleNavigate);
 }
 
@@ -329,7 +335,6 @@ function createTableOfContent() {
   headings.forEach(function (heading) {
     var li = `<li class="content-heading"><a>${heading.innerHTML}</a></li>`;
     ul.innerHTML += li;
-    console.log(li);
   });
 }
 
@@ -365,6 +370,9 @@ function displayArticles(articles) {
   let articles_container = document.querySelector("#blog-landing-articles");
 
   articles.forEach(function (article) {
+    if (article.title == main_article.title) {
+      return;
+    }
     let html = "";
     const preview_text = getPreviewText(article.content);
     // html = `<div class="article-container">${article.title}</div>`;
@@ -414,22 +422,25 @@ function getArticles() {
   var params = query.substring(1).split("&");
   if (params) {
     category = params[0].substring(9);
-    console.log(category);
   }
   getRequest()
     .then((res) => res.json())
     .then((data) => {
       all_articles = data["articles"];
       if (offset === 0) {
-        const main_article = all_articles[all_articles.length - 1];
-        if (all_articles.length >= 3) {
-          all_articles = all_articles.slice(0, all_articles.length - 1);
-        }
+        main_article = all_articles[all_articles.length - 1];
         displayLastArticle(main_article);
       }
       displayArticles(all_articles);
       addArticleEvents();
+      if (data["is_last"]) {
+        hide_load_more_button();
+      }
     });
+}
+
+function hide_load_more_button() {
+  $("#more-articles").style.display = "none";
 }
 
 function format_date(timestamp) {
