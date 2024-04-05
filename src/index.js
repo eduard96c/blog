@@ -82,6 +82,21 @@ function addArticleEvents() {
   close_article.addEventListener("click", closeArticle);
 }
 
+function articleNavigate(event) {
+  var article_content = $("#article-content");
+  var headings = article_content.querySelectorAll("h3");
+  console.log(headings);
+
+  if (event.target.tagName == "A") {
+    var found = Array.from(headings).find((h) => {
+      return h.innerHTML == event.target.tagName.innerHTML;
+    });
+    if (found) {
+      found.scrollIntoView();
+    }
+  }
+}
+
 function filtreArticles(event) {
   var id = event.target.dataset.id;
   category = id;
@@ -299,21 +314,23 @@ function displayArticle(article) {
   article_content.innerHTML = parseText(article.content);
 
   createTableOfContent();
+
+  var content_list = $("#table-of-content");
+  console.log(content_list);
+  content_list.addEventListener("click", articleNavigate);
 }
 
 function createTableOfContent() {
   var content = $("#article-content");
   var headings = content.querySelectorAll("h3");
   var table_wrapper = $("#article-table");
-  var ul = "<ul>";
+  var ul = $("#table-of-content");
 
   headings.forEach(function (heading) {
     var li = `<li class="content-heading"><a>${heading.innerHTML}</a></li>`;
-    ul += li;
+    ul.innerHTML += li;
     console.log(li);
   });
-  ul += "</ul>";
-  table_wrapper.innerHTML += ul;
 }
 
 function getPreviewText(text) {

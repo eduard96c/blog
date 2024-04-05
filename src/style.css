@@ -1207,5 +1207,10 @@ button {
   display: block;
   margin: 0 auto;
 }
-#main-article-preview {
+#article-bloc {
+  height: 100%;
+}
+.content-heading {
+  cursor: pointer;
+  margin: 10px;
 }
