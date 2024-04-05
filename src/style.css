@@ -227,6 +227,7 @@ header {
   transition: all 0.4s;
   flex: 1;
   padding: 15px;
+  overflow: hidden;
 }
 .main-article-overlay-content div:last-child {
   text-align: right;
@@ -341,6 +342,7 @@ header {
   -webkit-box-orient: vertical;
   display: -webkit-box;
   text-align: left;
+  word-break: break-all;
 }
 .article-card-text p {
   margin: 0;
@@ -1204,4 +1206,6 @@ button {
 .article-image {
   display: block;
   margin: 0 auto;
+}
+#main-article-preview {
 }

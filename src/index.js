@@ -147,9 +147,18 @@ function parseText(text) {
   return html;
 }
 
-function loadMoreArticles() {
+function loadMoreArticles(event) {
   offset += limit;
-  getRequest();
+  getRequest()
+    .then((res) => res.json())
+    .then((data) => {
+      all_articles = data["articles"];
+      displayArticles(all_articles);
+      addArticleEvents();
+      if (data["is_last"]) {
+        event.target.style.display = "none";
+      }
+    });
 }
 
 function startUpdate(id) {
@@ -175,21 +184,14 @@ function deleteArticle(id) {
 }
 
 function getRequest() {
-  fetch(
+  return fetch(
     "http://localhost:3000/articles-json?limit=" +
       limit +
       "&offset=" +
       offset +
       "&category=" +
       category
-  )
-    .then((res) => res.json())
-    .then((data) => {
-      all_articles = data;
-      displayArticles(all_articles);
-      displayLastArticle();
-      addArticleEvents();
-    });
+  );
 }
 
 function createArticle(article) {
@@ -303,8 +305,8 @@ function getPreviewText(text) {
   }
 }
 
-function displayLastArticle() {
-  const article = all_articles[all_articles.length - 1];
+function displayLastArticle(article) {
+  // const article = all_articles[all_articles.length - 1];
   const parent = $("#main-article-wrapper");
   const title = $("#main-article-title");
   const preview = $("#main-article-preview");
@@ -314,7 +316,7 @@ function displayLastArticle() {
   title.innerHTML = article.title;
   preview.innerHTML = article.content;
   img.src = article.image;
-  dt.innerHTML = article.date;
+  dt.innerHTML = format_date(article.date);
   parent.dataset.id = article.id;
 }
 
@@ -337,9 +339,11 @@ function displayArticles(articles) {
            ${article.title}
             </h3>
             <div class="article-card-heading-info">
-              <span>${article.date}</span>
+              <span>${format_date(article.date)}</span>
               <span>|</span>
-              <span>${article.category}</span>
+              <span>${
+                $('a[data-id="' + article.category + '"]').innerHTML
+              }</span>
             </div>
           </div>
           <div class="article-card-text">
@@ -355,7 +359,6 @@ function displayArticles(articles) {
                 <span class="delete-article control-btn" title="Delete">❌</span>
               </div>
             </div>
-            <div class="contentsmall" style="display:none">${article.content}</div>
           </div>
         </div>
       </div>
@@ -372,8 +375,40 @@ function getArticles() {
     category = params[0].substring(9);
     console.log(category);
   }
-  console.log(params);
-  getRequest();
+  getRequest()
+    .then((res) => res.json())
+    .then((data) => {
+      all_articles = data["articles"];
+      if (offset === 0) {
+        const main_article = all_articles[all_articles.length - 1];
+        if (all_articles.length >= 3) {
+          all_articles = all_articles.slice(0, all_articles.length - 1);
+        }
+        displayLastArticle(main_article);
+      }
+      displayArticles(all_articles);
+      addArticleEvents();
+    });
+}
+
+function format_date(timestamp) {
+  const date = new Date(timestamp);
+  const year = date.getFullYear();
+  let month = date.getMonth();
+  let day = date.getDay();
+  if (month < 10) {
+    month = "0" + month;
+  }
+
+  if (day < 10) {
+    day = "0" + day;
+  }
+
+  return year + "-" + month + "-" + day;
+}
+
+function format_category(text) {
+  return text.replace("-", "&").replace("_", " ");
 }
 
 //apelare functii
