@@ -300,9 +300,16 @@ function displayArticle(article) {
 }
 
 function getPreviewText(text) {
-  if (text) {
-    return text.slice(3, 200);
-  }
+  const list = text.split("\n");
+  let result = "";
+  list.forEach(function (line) {
+    const index_h = line.indexOf("h3:");
+    const index_img = line.indexOf("img:");
+    if (index_h < 0 && index_img < 0) {
+      result = line.slice(0, 100);
+    }
+  });
+  return result;
 }
 
 function displayLastArticle(article) {
@@ -314,7 +321,7 @@ function displayLastArticle(article) {
   const dt = $("#main-article-date");
 
   title.innerHTML = article.title;
-  preview.innerHTML = article.content;
+  preview.innerHTML = getPreviewText(article.content);
   img.src = article.image;
   dt.innerHTML = format_date(article.date);
   parent.dataset.id = article.id;
