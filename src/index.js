@@ -6,9 +6,8 @@ let edit = false;
 let all_articles = [];
 let main_article = false;
 
-let limit = 1;
+let limit = 2;
 let offset = 0;
-
 let category = false;
 
 //declarari functii
@@ -308,6 +307,7 @@ function _handleContinueReading(event) {
   const article = all_articles.find(
     (curentArticle) => curentArticle.id == article_id
   );
+  $("#table-of-content").innerHTML = "";
   displayArticle(article);
 }
 
@@ -339,14 +339,17 @@ function createTableOfContent() {
 function getPreviewText(text) {
   const list = text.split("\n");
   let result = "";
-  list.forEach(function (line) {
+
+  const prev_text = list.find(function (line) {
     const index_h = line.indexOf("h3:");
     const index_img = line.indexOf("img:");
     if (index_h < 0 && index_img < 0) {
+      console.log(line);
       result = line.slice(0, 100);
+      return result;
     }
   });
-  return result;
+  return prev_text;
 }
 
 function displayLastArticle(article) {
@@ -359,7 +362,7 @@ function displayLastArticle(article) {
 
   title.innerHTML = article.title;
   preview.innerHTML = getPreviewText(article.content);
-  img.src = article.image;
+  img.src = "images/" + article.image;
   dt.innerHTML = format_date(article.date);
   parent.dataset.id = article.id;
 }

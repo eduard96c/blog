@@ -293,7 +293,7 @@ header {
 
 .article-card-content-holder {
   background-color: white;
-  height: 230px;
+  height: 260px;
   box-shadow: 0px 3px 5px 0px rgba(0, 0, 0, 0.35);
   position: relative;
   border-bottom-left-radius: 5px;
@@ -385,6 +385,8 @@ header {
   background-color: transparent;
   border: 2px solid gray;
   transition: all 0.6s;
+  background: darkgreen;
+  color: white;
 }
 #more-articles:hover {
   border-color: white;
@@ -1120,7 +1122,7 @@ button {
   background-color: white;
   margin: 0 auto;
   position: sticky;
-  top: 100px;
+  top: 40px;
   border-radius: 5px;
   display: flex;
 }
@@ -1184,6 +1186,8 @@ button {
 }
 #article-title {
   text-align: center;
+  width: 50%;
+  margin: auto;
 }
 #close-article {
   position: absolute;
@@ -1198,6 +1202,7 @@ button {
   box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.4);
   margin: 5px;
   padding: 15px;
+  overflow: auto;
 }
 #create-article-form {
   flex: 1;
@@ -1213,4 +1218,23 @@ button {
 .content-heading {
   cursor: pointer;
   margin: 10px;
+}
+#table-of-content {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  text-align: start;
+  overflow: auto;
+  height: 70%;
+}
+#table-of-content li {
+  padding: 10px;
+  color: #51768f;
+}
+#article-table {
+  text-align: center;
+}
+#main-article-preview {
+  max-height: 70px;
+  overflow: hidden;
 }
