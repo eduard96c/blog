@@ -34,7 +34,7 @@ cd blog/
 npm install
 npm start
 
-If both [blog-api](https://github.com/eduard96c/blog-API) and [blog](https://eduard96c.github.io/blog/) are in the same directory:
+If both https://github.com/eduard96c/blog-API and https://eduard96c.github.io/blog/ are in the same directory:
 
 open another terminal
 npm run api
