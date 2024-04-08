@@ -6,7 +6,7 @@ let edit = false;
 let all_articles = [];
 let main_article = false;
 
-let limit = 2;
+let limit = 1;
 let offset = 0;
 
 let category = false;
@@ -26,20 +26,14 @@ function addPageEvents() {
 
   $(".close-modal").addEventListener("click", closeCreateForm);
 
-  const submit_btn = document.querySelector("#save-article");
+  const submit_btn = $("#save-article");
   submit_btn.addEventListener("click", saveArticle);
 
-  const loadMore = document.querySelector("#more-articles");
+  const loadMore = $("#more-articles");
   loadMore.addEventListener("click", loadMoreArticles);
 
   const text_area = $("#content");
   text_area.addEventListener("keydown", previewArticle);
-
-  //(category-selector)
-  // var category_selector = $(".category-selector", true);
-  // category_selector.forEach(function (category_button) {
-  //   category_button.addEventListener("click", filtreArticles);
-  // });
 
   // const preview_button = $("#preview-article");
   // preview_button.addEventListener("click", parseText);
@@ -59,13 +53,7 @@ function addArticleEvents() {
     buton.addEventListener("click", function () {
       const parent = buton.closest(".article-container");
       const id = parent.dataset.id;
-      deleteArticle(id)
-        .then((res) => res.json())
-        .then((status) => {
-          if (status.success) {
-            window.location.reload();
-          }
-        });
+      deleteArticle(id);
     });
   });
 
@@ -108,14 +96,6 @@ function findPosition(obj) {
     } while ((obj = obj.offsetParent));
     return [currenttop - 200];
   }
-}
-
-function filtreArticles(event) {
-  var id = event.target.dataset.id;
-  category = id;
-  var filtred_articles = all_articles.filter(
-    (article) => article.category == id
-  );
 }
 
 function previewArticle(event) {
@@ -191,9 +171,9 @@ function loadMoreArticles(event) {
 function startUpdate(id) {
   edit = id;
   const article = all_articles.find((article) => article.id == id);
-  const form = document.querySelector("#create-article-form");
+  const form = $("#create-article-form");
   for (const key in article) {
-    const input = document.querySelector("#" + key);
+    const input = $("#" + key);
     if (input) {
       input.value = article[key];
     }
@@ -201,24 +181,25 @@ function startUpdate(id) {
 }
 
 function deleteArticle(id) {
-  return fetch("http://localhost:3000/articles-json/delete", {
+  fetch("http://localhost:3000/articles-json/delete", {
     method: "DELETE",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({ id: id }),
-  });
+  })
+    .then((res) => res.json())
+    .then((status) => {
+      if (status.success) {
+        window.location.reload();
+      }
+    });
 }
 
 function getRequest() {
-  return fetch(
-    "http://localhost:3000/articles-json?limit=" +
-      limit +
-      "&offset=" +
-      offset +
-      "&category=" +
-      category
-  );
+  const api = getApiURL();
+  console.log(api);
+  return fetch(api);
 }
 
 function createArticle(article) {
@@ -228,17 +209,46 @@ function createArticle(article) {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(article),
-  });
+  })
+    .then((r) => r.json())
+    .then((status) => {
+      if (status.success) {
+        window.location.reload();
+      }
+    });
 }
 
 function updateArticle(article) {
-  return fetch("http://localhost:3000/articles-json/update", {
+  fetch("http://localhost:3000/articles-json/update", {
     method: "PUT",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(article),
-  });
+  })
+    .then((r) => r.json())
+    .then((status) => {
+      if (status.success) {
+        window.location.reload();
+      }
+    });
+}
+
+function getApiURL() {
+  let api = "http://localhost:3000/articles-json";
+  if (limit) {
+    api += "?limit=" + limit + "&offset=" + offset;
+  }
+
+  if (category) {
+    if (limit) {
+      api += "&category=" + category;
+    } else {
+      api += "?category=" + category;
+    }
+  }
+
+  return api;
 }
 
 function saveArticle(event) {
@@ -247,21 +257,9 @@ function saveArticle(event) {
   if (edit) {
     const article = getFormValues();
     article.id = edit;
-    updateArticle(article)
-      .then((r) => r.json())
-      .then((status) => {
-        if (status.success) {
-          window.location.reload();
-        }
-      });
+    updateArticle(article);
   } else {
-    createArticle(article)
-      .then((r) => r.json())
-      .then((status) => {
-        if (status.success) {
-          window.location.reload();
-        }
-      });
+    createArticle(article);
   }
 }
 
@@ -283,7 +281,7 @@ function getFormValues() {
 }
 
 function closeCreateForm() {
-  const modal = document.querySelector("#article-create-modal");
+  const modal = $("#article-create-modal");
   modal.style.display = "none";
 }
 function closeArticle() {
@@ -292,7 +290,7 @@ function closeArticle() {
 }
 
 function openCreateFrom() {
-  const modal = document.querySelector("#article-create-modal");
+  const modal = $("#article-create-modal");
   modal.style.display = "block";
 }
 
@@ -367,8 +365,7 @@ function displayLastArticle(article) {
 }
 
 function displayArticles(articles) {
-  let articles_container = document.querySelector("#blog-landing-articles");
-
+  let articles_container = $("#blog-landing-articles");
   articles.forEach(function (article) {
     if (article.title == main_article.title) {
       return;
@@ -457,10 +454,6 @@ function format_date(timestamp) {
   }
 
   return year + "-" + month + "-" + day;
-}
-
-function format_category(text) {
-  return text.replace("-", "&").replace("_", " ");
 }
 
 //apelare functii
