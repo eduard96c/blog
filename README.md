@@ -21,27 +21,29 @@ DigitalCraft Hub is a platform dedicated to internet enthusiasts, giving them th
 
 ## Requirements
 
-- Node.js
+- [Node.js](https://nodejs.org/en/download)
 - [Blog API](https://github.com/eduard96c/blog-API)
 
 ## How To Install
 
-- [install node.js](https://nodejs.org/en/download)
-- clone this project to your machine
-- open terminal in the cloned project and run the command "npm install" to install dependencies
-- clone the API to your machine(preferably both project directories should be in the same directory)
-- navigate to this project root folder and open terminal
-- run command "npm start" to start this project
+First install requirements(for API see repo)
+
+```
+git clone https://github.com/eduard96c/blog.git
+cd blog/
+npm install
+npm start
 
 If both [blog-api](https://github.com/eduard96c/blog-API) and [blog](https://eduard96c.github.io/blog/) are in the same directory:
 
-- open another terminal inside this project root foledr
-- run command "npm run api" to start the API
+open another terminal
+npm run api
 
 Otherwise:
 
-- navigate to blog-API directory and open terminal
-- run "npm start" to start the API
+navigate to blog-API directory and open terminal
+npm start
+```
 
 ## API
 
