@@ -1,6 +1,7 @@
 import "./style.css";
 
 console.warn("start");
+let category_list = ["marketing-seo", "it-web_design", "ux-graphic_design"];
 
 let edit = false;
 let all_articles = [];
