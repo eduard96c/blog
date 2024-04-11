@@ -10,6 +10,19 @@ let limit = 2;
 let offset = 0;
 let category = false;
 
+let is_demo = false;
+let fetch_url = "http://localhost:3000/articles-json";
+
+function check_if_demo() {
+  let host = window.location.hostname;
+  if (host === "eduard96c.github.io") {
+    is_demo = true;
+    fetch_url = "articles-data.json";
+  }
+
+  // console.log(url);
+}
+
 //declarari functii
 function $(selector, all = false) {
   if (all) {
@@ -81,8 +94,9 @@ function articleNavigate(event) {
     });
     if (found) {
       // found.scrollIntoView();
-      const pos = findPosition(found);
-      article_content.scroll(0, findPosition(found));
+      // const pos = findPosition(found);
+      // article_content.scroll(0, findPosition(found));
+      found.scrollIntoView();
     }
   }
 }
@@ -93,7 +107,7 @@ function findPosition(obj) {
     do {
       currenttop += obj.offsetTop;
     } while ((obj = obj.offsetParent));
-    return [currenttop - 200];
+    return [currenttop - 100];
   }
 }
 
@@ -197,7 +211,6 @@ function deleteArticle(id) {
 
 function getRequest() {
   const api = getApiURL();
-  console.log(api);
   return fetch(api);
 }
 
@@ -234,7 +247,7 @@ function updateArticle(article) {
 }
 
 function getApiURL() {
-  let api = "http://localhost:3000/articles-json";
+  let api = fetch_url;
   if (limit) {
     api += "?limit=" + limit + "&offset=" + offset;
   }
@@ -344,7 +357,6 @@ function getPreviewText(text) {
     const index_h = line.indexOf("h3:");
     const index_img = line.indexOf("img:");
     if (index_h < 0 && index_img < 0) {
-      console.log(line);
       result = line.slice(0, 100);
       return result;
     }
@@ -379,7 +391,7 @@ function displayArticles(articles) {
     html = `<div class="article-container" data-id="${article.id}">
     <div class="article-card">
       <div class="article-card-image-holder">
-        <img height="165" src="/images/${article.image}">
+        <img height="165" src="/images/${article.image || "js_blog.png"}">
       </div>
       <div class="article-card-content-holder">
         <div class="article-card-content">
@@ -462,3 +474,4 @@ function format_date(timestamp) {
 //apelare functii
 addPageEvents();
 getArticles();
+check_if_demo();
