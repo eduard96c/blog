@@ -473,7 +473,38 @@ function format_date(timestamp) {
   return year + "-" + month + "-" + day;
 }
 
+function create_categories() {
+  const list = $("#categories-list");
+  const select = $("#category");
+  category_list.forEach(function (elem, idx) {
+    //adaugam categoriile la lista de link-uri
+    list.innerHTML += `<li>
+    <a
+      href="/?category=${elem}"
+      class="category-selector"
+      data-id="${elem}"
+      >${get_category_name(elem)}</a
+    >
+  </li>`;
+    if (idx < category_list.length - 1) {
+      list.innerHTML += "<hr>";
+    }
+
+    //adaugam optiune la select
+    select.innerHTML += ` <option value="${elem}">${get_category_name(
+      elem
+    )}</option>`;
+  });
+}
+
+function get_category_name(elem) {
+  return (elem.charAt(0).toUpperCase() + elem.slice(1))
+    .replace("-", " & ")
+    .replace("_", " ");
+}
+
 //apelare functii
 check_if_demo();
+create_categories();
 addPageEvents();
 getArticles();
