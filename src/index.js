@@ -472,6 +472,6 @@ function format_date(timestamp) {
 }
 
 //apelare functii
+check_if_demo();
 addPageEvents();
 getArticles();
-check_if_demo();
