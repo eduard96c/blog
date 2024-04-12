@@ -13,6 +13,14 @@ let category = false;
 
 let is_demo = false;
 let fetch_url = "http://localhost:3000/articles-json";
+let page_url = window.location;
+
+function getCleanUrl() {
+  const index = window.location.href.indexOf("?");
+  if (index !== false) {
+    page_url = window.location.href.slice(0, index);
+  }
+}
 
 function check_if_demo() {
   let host = window.location.hostname;
@@ -392,7 +400,7 @@ function displayArticles(articles) {
     html = `<div class="article-container" data-id="${article.id}">
     <div class="article-card">
       <div class="article-card-image-holder">
-        <img height="165" src="${is_demo ? "" : "/images"}/${
+        <img height="165" src="${is_demo ? "" : "images"}/${
       article.image || "js_blog.png"
     }">
       </div>
@@ -481,7 +489,7 @@ function create_categories() {
     //adaugam categoriile la lista de link-uri
     list.innerHTML += `<li>
     <a
-      href="${window.location}?category=${elem}"
+      href="${page_url}?category=${elem}"
       class="category-selector"
       data-id="${elem}"
       >${get_category_name(elem)}</a
@@ -506,6 +514,7 @@ function get_category_name(elem) {
 
 //apelare functii
 check_if_demo();
+getCleanUrl();
 create_categories();
 addPageEvents();
 getArticles();
