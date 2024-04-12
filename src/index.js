@@ -480,7 +480,7 @@ function create_categories() {
     //adaugam categoriile la lista de link-uri
     list.innerHTML += `<li>
     <a
-      href="/?category=${elem}"
+      href="${window.location}?category=${elem}"
       class="category-selector"
       data-id="${elem}"
       >${get_category_name(elem)}</a
