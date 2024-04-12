@@ -13,6 +13,7 @@ let category = false;
 
 let is_demo = false;
 let fetch_url = "http://localhost:3000/articles-json";
+// let fetch_url = "articles-data.json";
 let page_url = window.location;
 
 function getCleanUrl() {
@@ -181,8 +182,18 @@ function loadMoreArticles(event) {
   getRequest()
     .then((res) => res.json())
     .then((data) => {
-      all_articles = all_articles.concat(data["articles"]);
-      displayArticles(data["articles"]);
+      let get_data;
+
+      // luam articolele in functie de mediu
+      if (is_demo) {
+        get_data = filterArticles(data);
+        // get_data = data;
+      } else {
+        get_data = data["articles"];
+      }
+
+      all_articles = all_articles.concat(get_data);
+      displayArticles(get_data);
       addArticleEvents();
       if (data["is_last"]) {
         hide_load_more_button();
@@ -400,7 +411,7 @@ function displayArticles(articles) {
     html = `<div class="article-container" data-id="${article.id}">
     <div class="article-card">
       <div class="article-card-image-holder">
-        <img height="165" src="${is_demo ? "" : "images"}/${
+        <img height="165" src="${is_demo ? "" : "/images/"}${
       article.image || "js_blog.png"
     }">
       </div>
@@ -449,17 +460,53 @@ function getArticles() {
   getRequest()
     .then((res) => res.json())
     .then((data) => {
-      all_articles = data["articles"] || data;
-      if (offset === 0) {
-        main_article = all_articles[all_articles.length - 1];
-        displayLastArticle(main_article);
+      if (is_demo) {
+        //daca mediu e live filtram articole in functie de categorie/limita
+        filterArticles(data);
+      } else {
+        //daca mediu e dev, articolele sunt gata filtrate de catre api
+        all_articles = data["articles"];
       }
-      displayArticles(all_articles);
-      addArticleEvents();
-      if (data["is_last"]) {
-        hide_load_more_button();
-      }
+      //procesam articolele primite
+      processGetRequest(data);
     });
+}
+
+function filterArticles(data) {
+  let filtered = data;
+  let last_article;
+
+  if (category) {
+    filtered = data.filter((article) => article.category === category);
+  }
+
+  if (offset == 0) {
+    last_article = filtered[filtered.length - 1];
+  }
+
+  if (limit) {
+    filtered = filtered.slice(offset, offset + limit);
+
+    if (offset == 0) {
+      filtered.push(last_article);
+    }
+  }
+
+  all_articles = filtered;
+
+  return filtered;
+}
+
+function processGetRequest(data) {
+  if (offset === 0) {
+    main_article = all_articles[all_articles.length - 1];
+    displayLastArticle(main_article);
+  }
+  displayArticles(all_articles);
+  addArticleEvents();
+  if (data["is_last"]) {
+    hide_load_more_button();
+  }
 }
 
 function hide_load_more_button() {
