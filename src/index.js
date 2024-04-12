@@ -392,7 +392,9 @@ function displayArticles(articles) {
     html = `<div class="article-container" data-id="${article.id}">
     <div class="article-card">
       <div class="article-card-image-holder">
-        <img height="165" src="/images/${article.image || "js_blog.png"}">
+        <img height="165" src="${is_demo ? "" : "/images"}/${
+      article.image || "js_blog.png"
+    }">
       </div>
       <div class="article-card-content-holder">
         <div class="article-card-content">
