@@ -11,7 +11,8 @@
     "build": "webpack --mode production",
     "start": "webpack serve --open",
     "demo": "set PORT=8080 && serve docs",
-    "api": "cd ../blog-API && npm start"
+    "api": "cd ../blog-API && npm start",
+    "build-all": "npm run build && node ./src/save-build-data.js"
   },
   "author": "",
   "license": "ISC",
