@@ -394,7 +394,7 @@ function displayLastArticle(article) {
 
   title.innerHTML = article.title;
   preview.innerHTML = getPreviewText(article.content);
-  img.src = "images/" + article.image;
+  img.src = is_demo ? article.image : "images/" + article.image;
   dt.innerHTML = format_date(article.date);
   parent.dataset.id = article.id;
 }
@@ -437,7 +437,9 @@ function displayArticles(articles) {
               <button type="button" class="continue_reading">
                 Continue Reading
               </button>
-              <div class="article-control-buttons">
+              <div class="article-control-buttons" style="${
+                is_demo ? "height:0" : ""
+              }">
                 <span class="start-update control-btn" title="Update">💾</span>
                 <span class="delete-article control-btn" title="Delete">❌</span>
               </div>
