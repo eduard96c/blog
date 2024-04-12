@@ -439,7 +439,6 @@ function getArticles() {
   getRequest()
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
       all_articles = data["articles"] || data;
       if (offset === 0) {
         main_article = all_articles[all_articles.length - 1];
