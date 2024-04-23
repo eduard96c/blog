@@ -10,7 +10,8 @@ DigitalCraft Hub is a platform dedicated to internet enthusiasts, giving them th
 
 ## DEMO
 
-- [This](https://eduard96c.github.io/blog/) is a prieview of this project
+- [This](https://eduard96c.github.io/blog/) is a preview of this project
+  ![preview-image](./src/images/preview.png)
 
 ## Features & Usage
 

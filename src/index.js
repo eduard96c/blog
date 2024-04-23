@@ -111,16 +111,6 @@ function articleNavigate(event) {
   }
 }
 
-function findPosition(obj) {
-  var currenttop = 0;
-  if (obj.offsetParent) {
-    do {
-      currenttop += obj.offsetTop;
-    } while ((obj = obj.offsetParent));
-    return [currenttop - 100];
-  }
-}
-
 function previewArticle(event) {
   // event.preventDefault();
 
@@ -363,8 +353,11 @@ function createTableOfContent() {
   var table_wrapper = $("#article-table");
   var ul = $("#table-of-content");
 
-  headings.forEach(function (heading) {
+  headings.forEach(function (heading, idx) {
     var li = `<li class="content-heading"><a>${heading.innerHTML}</a></li>`;
+    if (idx != headings.length - 1) {
+      li += "<hr>";
+    }
     ul.innerHTML += li;
   });
 }
@@ -438,7 +431,7 @@ function displayArticles(articles) {
                 Continue Reading
               </button>
               <div class="article-control-buttons" style="${
-                is_demo ? "height:0" : ""
+                is_demo ? "height:0px;overflow:hidden;" : ""
               }">
                 <span class="start-update control-btn" title="Update">💾</span>
                 <span class="delete-article control-btn" title="Delete">❌</span>

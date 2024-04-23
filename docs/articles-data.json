@@ -1,13 +1,5 @@
 [
   {
-    "id": "gjtwm1712590141766",
-    "category": "it-web_design",
-    "date": 1712602368286,
-    "title": "Test article 3",
-    "image": "",
-    "content": "Lorem, ipsum dolor sit amet consectetur adipisicing elit. Excepturi illum quas quae, optio quaerat animi provident expedita reiciendis, nulla incidunt id? Ducimus voluptate, quam dolorum aliquam fugiat explicabo alias veniam.\n"
-  },
-  {
     "id": "n0qxv81711649963178",
     "title": "Site-ul blog folosind JavaScript",
     "image": "js_blog.png",
@@ -81,7 +73,7 @@
   },
   {
     "id": "ah7pue1711649798226",
-    "title": "TESSSSSt",
+    "title": "Cinci tendințe tehnologice la care trebuie să fiți atenți în 2024",
     "image": "it_trends.png",
     "date": 1712587845560,
     "category": "it-web_design",

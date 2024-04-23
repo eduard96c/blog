@@ -20,6 +20,7 @@ function getArticles() {
   return JSON.parse(content);
 }
 
+//luam numele imaginilor
 function getImages() {
   let images = [];
   const articles = getArticles();
@@ -33,6 +34,7 @@ function getImages() {
 
 function saveImages() {
   const images = getImages();
+
   images.forEach(function (img) {
     fs.copyFile("./src/images/" + img, "./docs/" + img, (err) => {
       if (err) throw err;
