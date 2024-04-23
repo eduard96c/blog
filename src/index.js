@@ -457,12 +457,13 @@ function getArticles() {
     .then((data) => {
       if (is_demo) {
         //daca mediu e live filtram articole in functie de categorie/limita
-        filterArticles(data);
+        all_articles = filterArticles(data);
       } else {
         //daca mediu e dev, articolele sunt gata filtrate de catre api
         all_articles = data["articles"];
       }
       //procesam articolele primite
+
       processGetRequest(data);
     });
 }
@@ -487,8 +488,6 @@ function filterArticles(data) {
     }
   }
 
-  all_articles = filtered;
-
   return filtered;
 }
 
@@ -497,6 +496,7 @@ function processGetRequest(data) {
     main_article = all_articles[all_articles.length - 1];
     displayLastArticle(main_article);
   }
+  console.log(all_articles);
   displayArticles(all_articles);
   addArticleEvents();
   if (data["is_last"]) {
