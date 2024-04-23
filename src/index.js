@@ -11,9 +11,9 @@ let limit = 2;
 let offset = 0;
 let category = false;
 
-let is_demo = false;
-let fetch_url = "http://localhost:3000/articles-json";
-// let fetch_url = "articles-data.json";
+let is_demo = true;
+// let fetch_url = "http://localhost:3000/articles-json";
+let fetch_url = "articles-data.json";
 let page_url = window.location;
 
 function getCleanUrl() {
@@ -62,7 +62,6 @@ function addPageEvents() {
 }
 
 //setam toate event-urile de pe articole in functia addArticleEvents()
-
 function addArticleEvents() {
   var continueReadingButtons = document.querySelectorAll(".continue_reading");
   continueReadingButtons.forEach(function (button) {
@@ -82,7 +81,9 @@ function addArticleEvents() {
   const updateButtons = document.querySelectorAll(".start-update");
   updateButtons.forEach(function (button) {
     button.addEventListener("click", function () {
-      const parent = button.closest(".article-container");
+      const parent =
+        button.closest(".article-container") ||
+        button.closest("#main-article-wrapper");
       const id = parent.dataset.id;
       openCreateFrom();
       startUpdate(id);
@@ -306,6 +307,7 @@ function closeCreateForm() {
   const modal = $("#article-create-modal");
   modal.style.display = "none";
 }
+
 function closeArticle() {
   const modal = $("#article-modal");
   modal.style.display = "none";
@@ -390,6 +392,9 @@ function displayLastArticle(article) {
   img.src = is_demo ? article.image : "images/" + article.image;
   dt.innerHTML = format_date(article.date);
   parent.dataset.id = article.id;
+  if (is_demo) {
+    parent.querySelector(".article-control-buttons").remove();
+  }
 }
 
 function displayArticles(articles) {
