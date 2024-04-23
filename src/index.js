@@ -11,9 +11,9 @@ let limit = 2;
 let offset = 0;
 let category = false;
 
-let is_demo = true;
-// let fetch_url = "http://localhost:3000/articles-json";
-let fetch_url = "articles-data.json";
+let is_demo = false;
+let fetch_url = "http://localhost:3000/articles-json";
+// let fetch_url = "articles-data.json";
 let page_url = window.location;
 
 function getCleanUrl() {
